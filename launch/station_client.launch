@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+    <param name="station/bag_name" type="string" value="m1010"/>
+    <param name="station/bag_location" type="string" value="/home/domin/Documents/station_measurements" />
+    <node pkg="station2" type="station_client_node" name="station_server" output="screen"/>
+</launch>

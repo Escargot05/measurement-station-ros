@@ -1,0 +1,33 @@
+station:
+
+  initial_position: 2000          # (mm)
+  initial_angle: -40              # (degrees)
+  final_position: 0
+  final_angle: 40
+  continous_measurement: false
+  linear_step: 50
+  angular_step: 10
+  offset: 200
+
+  lidar_scans: 100
+  camera_images: 5
+
+  # bag:
+  #   name: "m1010"
+  #   location: "/home/domin/Documents/station_measurements"
+
+  lidar:
+    topic: "scan"
+  
+  lidar2:
+    topic: "scan_corrected"
+
+  camera:
+    info_topic:  "camera/color/camera_info"
+    color_topic: "camera/color/image_raw"
+    depth_topic: "camera/depth/image_raw"
+    ir_topic:    "camera/ir/image_raw"
+
+  serial:
+    port: "/dev/ttyUSB0"
+    baudrate: 115200

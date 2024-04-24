@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find astra_camera)/launch/astra_pro.launch">
+        <!-- <arg name="ir_info_uri" default="file://$(find station_controller)/config/sensors/astra_pro/ir_camera.yaml"/>
+        <arg name="color_info_uri" default="file://$(find station_controller)/config/sensors/astra_pro/rgb_camera.yaml"/> -->
+    </include>
+
+    <include file="$(find rplidar_ros)/launch/rplidar_a2m8.launch"/>
+
+    <include file="$(find laser_corrector)/launch/RP_A2_laser_corrector.launch"/>
+
+    <rosparam file="$(find station2)/config/robots/station.yaml"/>
+    <node pkg="station_controller" type="station_server_node" name="station_server" output="screen"/>
+</launch>
