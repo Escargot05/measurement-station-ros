@@ -106,7 +106,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-#  LIBRARIES station2
+  LIBRARIES ${PROJECT_NAME}
 #  CATKIN_DEPENDS laser_geometry rosbag roscpp serial std_msgs
 #  DEPENDS system_lib
 )
@@ -126,6 +126,10 @@ include_directories(
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/station2.cpp
 # )
+# add_library(${PROJECT_NAME}_core
+#   src/StationClient.cpp
+#   src/StationServer.cpp
+# )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -135,8 +139,13 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(station_server_node src/station_server_node.cpp)
-add_executable(station_client_node src/station_client_node.cpp)
+add_executable(station_server_node 
+  src/station_server_node.cpp 
+  src/StationServer.cpp
+  src/Lidar.cpp
+  src/Camera.cpp
+  src/StationController.cpp)
+add_executable(station_client_node src/station_client_node.cpp src/StationClient.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -152,7 +161,7 @@ add_executable(station_client_node src/station_client_node.cpp)
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
-target_link_libraries(station_server_node  ${catkin_LIBRARIES})
+target_link_libraries(station_server_node ${catkin_LIBRARIES})
 target_link_libraries(station_client_node ${catkin_LIBRARIES})
 
 #############

@@ -3,11 +3,17 @@
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "station_server");
-  ros::NodeHandle nh("~");
+  ros::NodeHandle nh;
 
-  StationServer server(nh, "lidar", "lidar2", "camera");
+  StationServer server(nh, "rplidar", "rplidar_corrected", "camera_astra");
 
-  ros::spin();
+    while (ros::ok()) {
+    ros::spinOnce();
+
+    server.performAction();
+
+    ros::Duration(0.1).sleep();
+  }
 
   return 0;
 }

@@ -1,4 +1,4 @@
-#include <StationClient.h>
+#include "station2/StationClient.h"
 
 StationClient::StationClient(ros::NodeHandle& nh, std::string lidar_name, std::string lidar2_name,
                              std::string camera_name)
@@ -14,6 +14,8 @@ StationClient::StationClient(ros::NodeHandle& nh, std::string lidar_name, std::s
   camera_color = nh_.subscribe(camera_name + "/color_data", 1, &StationClient::cameraColorCallback_, this);
   camera_depth_ = nh_.subscribe(camera_name + "/depth_data", 1, &StationClient::cameraDepthCallback_, this);
   camera_ir_ = nh_.subscribe(camera_name + "/ir_data", 1, &StationClient::cameraIrCallback_, this);
+
+  ROS_INFO("Client started!");
 }
 
 // Custom getchar method to skip the input buffer
@@ -107,4 +109,6 @@ void StationClient::sendKey(int c)
   std_msgs::Int32 num;
   num.data = c;
   key_code_.publish(num);
+
+  ROS_INFO("Key %d sended", c);
 }

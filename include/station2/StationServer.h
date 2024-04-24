@@ -3,12 +3,10 @@
 
 #include <cassert>
 #include <ros/ros.h>
-#include <Camera.h>
-// crap
-// #include <Lidar.h>
-#include "Lidar.h"
-#include <StationController.h>
 #include <std_msgs/Int32.h>
+#include "Camera.h"
+#include "Lidar.h"
+#include "StationController.h"
 
 #define KEYCODE_S 0x73
 #define KEYCODE_P 0x70

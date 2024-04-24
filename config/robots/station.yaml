@@ -1,9 +1,9 @@
 station:
 
-  initial_position: 2000          # (mm)
-  initial_angle: -40              # (degrees)
+  initial_position: 1000          # (mm)
+  initial_angle: 0              # (degrees)
   final_position: 0
-  final_angle: 40
+  final_angle: 20
   continous_measurement: false
   linear_step: 50
   angular_step: 10
@@ -16,18 +16,18 @@ station:
   #   name: "m1010"
   #   location: "/home/domin/Documents/station_measurements"
 
-  lidar:
+  rplidar:
     topic: "scan"
   
-  lidar2:
+  rplidar_corrected:
     topic: "scan_corrected"
 
-  camera:
+  camera_astra:
     info_topic:  "camera/color/camera_info"
     color_topic: "camera/color/image_raw"
     depth_topic: "camera/depth/image_raw"
     ir_topic:    "camera/ir/image_raw"
 
   serial:
-    port: "/dev/ttyUSB0"
+    port: "/dev/ttyUSB1"
     baudrate: 115200

@@ -3,9 +3,9 @@
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "station_client");
-  ros::NodeHandle nh("~");
+  ros::NodeHandle nh;
 
-  StationClient client(nh, "lidar", "lidar2", "camera");
+  StationClient client(nh, "rplidar", "rplidar_corrected", "camera_astra");
 
   while (ros::ok()) {
     int key = client.getch();

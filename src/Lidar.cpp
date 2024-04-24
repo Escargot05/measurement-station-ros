@@ -1,6 +1,6 @@
-// wtf is this do not work?
-// #include <Lidar.h>
-#include "../include/station2/Lidar.h"
+#include "station2/Lidar.h"
+
+int Lidar::scan_count_;
 
 Lidar::Lidar(ros::NodeHandle& nh, std::string name) : nh_(nh), scan_number_(0)
 {
@@ -39,6 +39,6 @@ void Lidar::callback_(const sensor_msgs::LaserScan::ConstPtr& scan)
   // bag_.write("cloud_" + topic_suffix_, ros::Time::now(), cloud);
   cloud_pub_.publish(cloud);
 
-  scan_number_ = scan_number_++ % scan_count_;
   ROS_INFO("Scan no: %d", scan_number_);
+  scan_number_ = ++scan_number_ % scan_count_;
 }

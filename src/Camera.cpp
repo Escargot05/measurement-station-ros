@@ -1,4 +1,6 @@
-#include <Camera.h>
+#include "station2/Camera.h"
+
+int Camera::image_count_;
 
 Camera::Camera(ros::NodeHandle& nh, std::string name) : nh_(nh), image_number_(0)
 {
@@ -72,8 +74,8 @@ void Camera::irCallback_(const sensor_msgs::Image::ConstPtr& img)
 void Camera::sendData() {
   queue_.callAvailable();
 
-  image_number_ = image_number_++ % image_count_;
   ROS_INFO("Image no: %d", image_number_);
+  image_number_ = ++image_number_ % image_count_;
 }
 
 void Camera::setImageCount(int image_count) {

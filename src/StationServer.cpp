@@ -1,4 +1,4 @@
-#include <StationServer.h>
+#include "station2/StationServer.h"
 
 StationServer::StationServer(ros::NodeHandle& nh, std::string lidar_name, std::string lidar2_name,
                              std::string camera_name)
@@ -20,11 +20,14 @@ StationServer::StationServer(ros::NodeHandle& nh, std::string lidar_name, std::s
   nh_.getParam("station/lidar_scans", scan_count);
   Camera::setImageCount(image_count);
   Lidar::setScanCount(scan_count);
+
+  ROS_INFO("Server started!");
 }
 
 void StationServer::keyCallaback_(const std_msgs::Int32::ConstPtr& num)
 {
   key_ = num->data;
+  ROS_INFO("Key %d received", key_);
 
   if (key_ == KEYCODE_P)
     ros::shutdown();
@@ -111,4 +114,6 @@ void StationServer::performAction()
       this->harvestData_();
       break;
   }
+
+  key_ = 0;
 }

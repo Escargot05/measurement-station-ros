@@ -31,6 +31,7 @@ private:
   position angle_;
 
   int offset_;
+  int angle_tune_;
 
   void printPlannerPosition_();
 
