@@ -6,14 +6,16 @@ StationClient::StationClient(ros::NodeHandle& nh, std::string lidar_name, std::s
 {
   key_code_ = nh_.advertise<std_msgs::Int32>("station/command", 1);
 
-  laser_ = nh_.subscribe(lidar_name + "/scan_data", 1, &StationClient::laserCallback_, this);
-  cloud_ = nh_.subscribe(lidar_name + "/cloud_data", 1, &StationClient::cloudCallback_, this);
-  laser_corrected_ = nh_.subscribe(lidar2_name + "/scan_data", 1, &StationClient::laserCorrectedCallback_, this);
-  cloud_corrected_ = nh_.subscribe(lidar_name + "/cloud_data", 1, &StationClient::cloudCorrectedCallback_, this);
-  camera_info_ = nh_.subscribe(camera_name + "/info_data", 1, &StationClient::cameraInfoCallback_, this);
-  camera_color = nh_.subscribe(camera_name + "/color_data", 1, &StationClient::cameraColorCallback_, this);
-  camera_depth_ = nh_.subscribe(camera_name + "/depth_data", 1, &StationClient::cameraDepthCallback_, this);
-  camera_ir_ = nh_.subscribe(camera_name + "/ir_data", 1, &StationClient::cameraIrCallback_, this);
+  laser_ = nh_.subscribe<sensor_msgs::LaserScan>(lidar_name + "/scan_data", 10, &StationClient::laserCallback_, this);
+  cloud_ = nh_.subscribe<sensor_msgs::PointCloud>(lidar_name + "/cloud_data", 10, &StationClient::cloudCallback_, this);
+  laser_corrected_ = nh_.subscribe<sensor_msgs::LaserScan>(lidar2_name + "/scan_data", 10, &StationClient::laserCorrectedCallback_, this);
+  cloud_corrected_ = nh_.subscribe<sensor_msgs::PointCloud>(lidar_name + "/cloud_data", 10, &StationClient::cloudCorrectedCallback_, this);
+  camera_info_ = nh_.subscribe<sensor_msgs::CameraInfo>(camera_name + "/info_data", 10, &StationClient::cameraInfoCallback_, this);
+  camera_color = nh_.subscribe<sensor_msgs::Image>(camera_name + "/color_data", 10, &StationClient::cameraColorCallback_, this);
+  camera_depth_ = nh_.subscribe<sensor_msgs::Image>(camera_name + "/depth_data", 10, &StationClient::cameraDepthCallback_, this);
+  camera_ir_ = nh_.subscribe<sensor_msgs::Image>(camera_name + "/ir_data", 10, &StationClient::cameraIrCallback_, this);
+  distance_ = nh_.subscribe<std_msgs::Int32>("/station/distance", 10, &StationClient::distanceCallback_, this);
+  angle_ = nh_.subscribe<std_msgs::Int32>("station/angle", 10, &StationClient::angleCallback_, this);
 
   ROS_INFO("Client started!");
 }
@@ -57,6 +59,7 @@ void StationClient::bagClose()
 void StationClient::laserCallback_(const sensor_msgs::LaserScan::ConstPtr& scan)
 {
   bag_.write("laser", ros::Time::now(), scan);
+  ROS_INFO("Laser stored.");
 }
 
 void StationClient::laserCorrectedCallback_(const sensor_msgs::LaserScan::ConstPtr& scan)
@@ -82,6 +85,7 @@ void StationClient::cameraInfoCallback_(const sensor_msgs::CameraInfo::ConstPtr&
 void StationClient::cameraColorCallback_(const sensor_msgs::Image::ConstPtr& img)
 {
   bag_.write("color_img", ros::Time::now(), img);
+  ROS_INFO("Image stored.");
 }
 
 void StationClient::cameraDepthCallback_(const sensor_msgs::Image::ConstPtr& img)
