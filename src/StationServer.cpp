@@ -38,8 +38,8 @@ void StationServer::harvestData_()
   ROS_INFO("Starting data harvesting");
 
   station_.home();
-  station_.moveDistanceMax();
   station_.moveAngleStart();
+  station_.moveDistanceMax();
 
   if (continous_measurement_)
   {

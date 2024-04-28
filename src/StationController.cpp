@@ -10,7 +10,7 @@ void StationController::printPlannerPosition_()
   ROS_INFO_STREAM(serial_.read(serial_.available()));
 }
 
-StationController::StationController(ros::NodeHandle& nh) : nh_(nh), angle_tune_(0)
+StationController::StationController(ros::NodeHandle& nh) : nh_(nh)
 {
   nh_.getParam("station/serial/port", port_);
   nh_.getParam("station/serial/baudrate", baudrate_);
@@ -98,7 +98,8 @@ void StationController::moveDistanceMax()
 
 void StationController::moveAngleStart()
 {
-  std::string gcode = "G1 E" + std::to_string(angle_.start) + " F1000\r\n";
+  angle_.current = angle_.start;
+  std::string gcode = "G1 E" + std::to_string(angle_.current) + " F1000\r\n";
   serial_.write(gcode);
 
   printPlannerPosition_();
@@ -130,15 +131,17 @@ void StationController::disableSteppers()
 
 void StationController::incrementAngle()
 {
-  angle_tune_++;
-  std::string gcode = "G1 E" + std::to_string(angle_tune_) + " F1000\r\n";
+  std::string gcode = "G1 E1 F1000\r\n";
+  serial_.write(gcode);
+  gcode = "G92 E0\r\n";
   serial_.write(gcode);
 }
 
 void StationController::decrementAngle()
 { 
-  angle_tune_--;
-  std::string gcode = "G1 E" + std::to_string(angle_tune_) + " F1000\r\n";
+  std::string gcode = "G1 E-1 F1000\r\n";
+  serial_.write(gcode);
+  gcode = "G92 E0\r\n";
   serial_.write(gcode);
 }
 
