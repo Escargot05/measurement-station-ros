@@ -8,7 +8,7 @@ Camera::Camera(ros::NodeHandle& nh, std::string name) : nh_(nh), image_number_(0
   std::string color_topic;
   std::string depth_topic;
   std::string ir_topic;
-  
+
   nh_.getParam("station/" + name + "/info_topic", info_topic);
   nh_.getParam("station/" + name + "/color_topic", color_topic);
   nh_.getParam("station/" + name + "/depth_topic", depth_topic);
@@ -58,30 +58,20 @@ void Camera::irCallback_(const sensor_msgs::Image::ConstPtr& img)
   ir_pub_.publish(img);
 }
 
-// void Camera::updateImageNumber(int scan_number)
-// {
-//   if (scan_number % rate_)
-//     store_data_ = false;
-//   else
-//   {
-//     store_data_ = true;
-//     image_number_ = image_number_++ % image_count_;
-//   }
-
-//   ROS_INFO("Image no: %d", image_number_);
-// }
-
-void Camera::sendData() {
+void Camera::sendData()
+{
   queue_.callAvailable();
 
   ROS_INFO("Image no: %d", image_number_);
   image_number_ = ++image_number_ % image_count_;
 }
 
-void Camera::setImageCount(int image_count) {
+void Camera::setImageCount(int image_count)
+{
   image_count_ = image_count;
 }
 
-int Camera::getImageCount() {
+int Camera::getImageCount()
+{
   return image_count_;
 }

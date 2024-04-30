@@ -36,7 +36,7 @@ private:
 
 public:
   StationServer(ros::NodeHandle& nh, std::string lidar_name, std::string lidar2_name, std::string camera_name);
-  
+
   void performAction();
 };
 

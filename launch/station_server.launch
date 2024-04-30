@@ -10,5 +10,5 @@
     <include file="$(find laser_corrector)/launch/RP_A2_laser_corrector.launch"/>
 
     <rosparam file="$(find station2)/config/robots/station.yaml"/>
-    <node pkg="station2" type="station_server_node" name="station_server" output="screen"/>
+    <node pkg="station2" type="station_server_node" name="station_server" output="screen" required="true"/>
 </launch>

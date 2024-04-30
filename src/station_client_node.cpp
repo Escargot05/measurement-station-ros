@@ -1,4 +1,5 @@
 #include "station2/StationClient.h"
+#include <thread>
 
 int main(int argc, char** argv)
 {
@@ -7,17 +8,10 @@ int main(int argc, char** argv)
 
   StationClient client(nh, "rplidar", "rplidar_corrected", "camera_astra");
 
-  while (ros::ok()) {
-    int key = client.getch();
+  std::thread keyInput(&StationClient::getInput, &client);
+  keyInput.detach();
 
-    if (key == KEYCODE_S) client.bagOpen();
-    else if (key == KEYCODE_P) client.bagClose();
-
-    client.sendKey(key);
-
-    ros::spinOnce();
-    ros::Duration(0.1).sleep();
-  }
+  ros::spin();
 
   return 0;
 }

@@ -23,8 +23,8 @@ StationController::StationController(ros::NodeHandle& nh) : nh_(nh)
   nh_.getParam("station/angular_step", angle_.step);
   nh_.getParam("station/linear_step", distance_.step);
 
-  distance_pub_ = nh_.advertise<std_msgs::Int32>("station/distance", 2);
-  angle_pub_ = nh_.advertise<std_msgs::Int32>("station/angle", 2);
+  distance_pub_ = nh_.advertise<std_msgs::Int32>("station/distance", 10);
+  angle_pub_ = nh_.advertise<std_msgs::Int32>("station/angle", 10);
 }
 
 void StationController::init()
@@ -107,11 +107,13 @@ void StationController::moveAngleStart()
   ros::Duration(1.0).sleep();
 }
 
-bool StationController::LinearStop() {
+bool StationController::LinearStop()
+{
   return (distance_.current == distance_.stop ? true : false);
 }
 
-bool StationController::AngularStop() {
+bool StationController::AngularStop()
+{
   return (angle_.current == angle_.stop ? true : false);
 }
 
@@ -138,7 +140,7 @@ void StationController::incrementAngle()
 }
 
 void StationController::decrementAngle()
-{ 
+{
   std::string gcode = "G1 E-1 F1000\r\n";
   serial_.write(gcode);
   gcode = "G92 E0\r\n";

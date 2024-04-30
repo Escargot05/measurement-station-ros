@@ -20,12 +20,9 @@ private:
   ros::Publisher color_pub_;
   ros::Publisher depth_pub_;
   ros::Publisher ir_pub_;
-  
 
   static int image_count_;
   int image_number_;
-  // int rate_;
-  // bool store_data_;
 
   void infoCallback_(const sensor_msgs::CameraInfo::ConstPtr& info);
   void colorCallback_(const sensor_msgs::Image::ConstPtr& img);

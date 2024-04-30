@@ -16,11 +16,13 @@ Lidar::Lidar(ros::NodeHandle& nh, std::string name) : nh_(nh), scan_number_(0)
   cloud_pub_ = nh_.advertise<sensor_msgs::PointCloud>(name + "/cloud_data", 10);
 }
 
-void Lidar::setScanCount(int scan_count){
+void Lidar::setScanCount(int scan_count)
+{
   scan_count_ = scan_count;
 }
 
-int Lidar::getScanCount() {
+int Lidar::getScanCount()
+{
   return scan_count_;
 }
 

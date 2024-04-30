@@ -46,15 +46,17 @@ void StationServer::harvestData_()
     station_.moveLinearContinous();
 
     double measurement_time = ros::Time::now().toSec() + MEASUREMENT_TIME_;
-    while(ros::Time::now().toSec() < measurement_time) {
-      //ros::spinOnce();
+    while (ros::Time::now().toSec() < measurement_time)
+    {
+      // ros::spinOnce();
       rplidar_.sendData();
       rplidar_corrected_.sendData();
       astra_.sendData();
       ros::Duration(0.1).sleep();
     }
   }
-  else {
+  else
+  {
     // There should be versions which depends on following images and scans values.
     // For now the only one case is implemented
 
@@ -63,25 +65,31 @@ void StationServer::harvestData_()
 
     assert(images <= scans);
     int rate = scans / images;
-    
-    while (true) {
+
+    while (true)
+    {
       station_.sendAngleData();
 
-      while (true){
+      while (true)
+      {
         station_.sendDistanceData();
 
-        for (int i = 0; i < scans; i++) {
-          if (!(i % rate)) astra_.sendData();
+        for (int i = 0; i < scans; i++)
+        {
+          if (!(i % rate))
+            astra_.sendData();
           rplidar_.sendData();
           rplidar_corrected_.sendData();
 
           ros::Duration(0.1).sleep();
         }
-        if (station_.LinearStop()) break;
+        if (station_.LinearStop())
+          break;
         station_.moveLinearStep();
       }
 
-      if (station_.AngularStop()) break;
+      if (station_.AngularStop())
+        break;
       station_.moveDistanceMax();
       station_.moveAngularStep();
     }

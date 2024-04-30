@@ -37,6 +37,11 @@ private:
   ros::Subscriber distance_;
   ros::Subscriber angle_;
 
+  int getch_();
+  void bagOpen_();
+  void bagClose_();
+  void sendKey_(int c);
+
   void laserCallback_(const sensor_msgs::LaserScan::ConstPtr& scan);
   void laserCorrectedCallback_(const sensor_msgs::LaserScan::ConstPtr& scan);
   void cloudCallback_(const sensor_msgs::PointCloud::ConstPtr& cloud);
@@ -51,10 +56,7 @@ private:
 public:
   StationClient(ros::NodeHandle& nh, std::string lidar_name, std::string lidar2_name, std::string camera_name);
 
-  int getch();
-  void bagOpen();
-  void bagClose();
-  void sendKey(int c);
+  void getInput();
 };
 
 #endif

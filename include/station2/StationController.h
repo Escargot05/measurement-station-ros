@@ -35,7 +35,7 @@ private:
   void printPlannerPosition_();
 
 public:
-  StationController(ros:: NodeHandle& nh);
+  StationController(ros::NodeHandle& nh);
 
   void init();
   void home();

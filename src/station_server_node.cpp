@@ -7,7 +7,8 @@ int main(int argc, char** argv)
 
   StationServer server(nh, "rplidar", "rplidar_corrected", "camera_astra");
 
-    while (ros::ok()) {
+  while (ros::ok())
+  {
     ros::spinOnce();
 
     server.performAction();
