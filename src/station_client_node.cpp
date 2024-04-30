@@ -1,4 +1,4 @@
-#include "station2/StationClient.h"
+#include "measurement_station/StationClient.h"
 #include <thread>
 
 int main(int argc, char** argv)

@@ -12,10 +12,6 @@ station:
   lidar_scans: 100
   camera_images: 5
 
-  # bag:
-  #   name: "m1010"
-  #   location: "/home/domin/Documents/station_measurements"
-
   rplidar:
     topic: "scan"
   

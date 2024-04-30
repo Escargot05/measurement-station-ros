@@ -1,4 +1,4 @@
-#include "station2/StationServer.h"
+#include "measurement_station/StationServer.h"
 
 int main(int argc, char** argv)
 {

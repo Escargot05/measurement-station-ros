@@ -1,4 +1,4 @@
-#include "station2/Lidar.h"
+#include "measurement_station/Lidar.h"
 
 int Lidar::scan_count_;
 

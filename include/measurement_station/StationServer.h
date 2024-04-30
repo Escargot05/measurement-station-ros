@@ -1,7 +1,6 @@
 #ifndef STATIONSERVER_H_
 #define STATIONSERVER_H_
 
-#include <cassert>
 #include <ros/ros.h>
 #include <std_msgs/Int32.h>
 #include "Camera.h"
@@ -36,7 +35,7 @@ private:
 
 public:
   StationServer(ros::NodeHandle& nh, std::string lidar_name, std::string lidar2_name, std::string camera_name);
-
+  
   void performAction();
 };
 

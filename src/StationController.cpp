@@ -1,4 +1,4 @@
-#include "station2/StationController.h"
+#include "measurement_station/StationController.h"
 
 // In case of wondering what used gcode commands do: https://marlinfw.org/meta/gcode/
 // The sent position is relative to the current postion

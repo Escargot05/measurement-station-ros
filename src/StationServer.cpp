@@ -1,4 +1,4 @@
-#include "station2/StationServer.h"
+#include "measurement_station/StationServer.h"
 
 StationServer::StationServer(ros::NodeHandle& nh, std::string lidar_name, std::string lidar2_name,
                              std::string camera_name)

@@ -1,4 +1,4 @@
-#include "station2/Camera.h"
+#include "measurement_station/Camera.h"
 
 int Camera::image_count_;
 
