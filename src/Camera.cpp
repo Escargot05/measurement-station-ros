@@ -34,30 +34,6 @@ Camera::Camera(ros::NodeHandle& nh, std::string name) : nh_(nh), image_number_(0
   ir_pub_ = nh_.advertise<sensor_msgs::Image>(name + "/ir_data", 10);
 }
 
-void Camera::infoCallback_(const sensor_msgs::CameraInfo::ConstPtr& info)
-{
-  // bag_.write("camera_info_" + topic_suffix_, ros::Time::now(), info);
-  info_pub_.publish(info);
-}
-
-void Camera::colorCallback_(const sensor_msgs::Image::ConstPtr& img)
-{
-  // bag_.write("color_img_" + topic_suffix_, ros::Time::now(), img);
-  color_pub_.publish(img);
-}
-
-void Camera::depthCallback_(const sensor_msgs::Image::ConstPtr& img)
-{
-  // bag_.write("depth_img_" + topic_suffix_, ros::Time::now(), img);
-  depth_pub_.publish(img);
-}
-
-void Camera::irCallback_(const sensor_msgs::Image::ConstPtr& img)
-{
-  // bag_.write("ir_img_" + topic_suffix_, ros::Time::now(), img);
-  ir_pub_.publish(img);
-}
-
 void Camera::sendData()
 {
   queue_.callAvailable();
@@ -74,4 +50,24 @@ void Camera::setImageCount(int image_count)
 int Camera::getImageCount()
 {
   return image_count_;
+}
+
+void Camera::infoCallback_(const sensor_msgs::CameraInfo::ConstPtr& info)
+{
+  info_pub_.publish(info);
+}
+
+void Camera::colorCallback_(const sensor_msgs::Image::ConstPtr& img)
+{
+  color_pub_.publish(img);
+}
+
+void Camera::depthCallback_(const sensor_msgs::Image::ConstPtr& img)
+{
+  depth_pub_.publish(img);
+}
+
+void Camera::irCallback_(const sensor_msgs::Image::ConstPtr& img)
+{
+  ir_pub_.publish(img);
 }

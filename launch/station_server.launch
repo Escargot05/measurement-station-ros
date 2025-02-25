@@ -7,8 +7,6 @@
 
     <include file="$(find rplidar_ros)/launch/rplidar_a2m8.launch"/>
 
-    <include file="$(find laser_corrector)/launch/RP_A2_laser_corrector.launch"/>
-
     <rosparam file="$(find measurement_station)/config/robots/station.yaml"/>
     <node pkg="measurement_station" type="station_server_node" name="station_server" output="screen" required="true"/>
 </launch>

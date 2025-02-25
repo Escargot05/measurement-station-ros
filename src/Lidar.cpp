@@ -33,12 +33,10 @@ void Lidar::sendData()
 
 void Lidar::callback_(const sensor_msgs::LaserScan::ConstPtr& scan)
 {
-  // bag_.write("scan_" + topic_suffix_, ros::Time::now(), scan);
   scan_pub_.publish(scan);
 
   sensor_msgs::PointCloud cloud;
   projection_.transformLaserScanToPointCloud("laser", *scan, cloud, tf_);
-  // bag_.write("cloud_" + topic_suffix_, ros::Time::now(), cloud);
   cloud_pub_.publish(cloud);
 
   ROS_INFO("Scan no: %d", scan_number_);

@@ -6,7 +6,7 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "station_client");
   ros::NodeHandle nh;
 
-  StationClient client(nh, "rplidar", "rplidar_corrected", "camera_astra");
+  StationClient client(nh, "rplidar", "camera_astra");
 
   std::thread keyInput(&StationClient::getInput, &client);
   keyInput.detach();

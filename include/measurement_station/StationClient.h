@@ -20,6 +20,11 @@
 
 class StationClient
 {
+public:
+  StationClient(ros::NodeHandle& nh, std::string lidar_name, std::string camera_name);
+
+  void getInput();
+
 private:
   ros::NodeHandle& nh_;
   rosbag::Bag bag_;
@@ -27,9 +32,7 @@ private:
   ros::Publisher key_code_;
 
   ros::Subscriber laser_;
-  ros::Subscriber laser_corrected_;
   ros::Subscriber cloud_;
-  ros::Subscriber cloud_corrected_;
   ros::Subscriber camera_info_;
   ros::Subscriber camera_color;
   ros::Subscriber camera_depth_;
@@ -43,9 +46,7 @@ private:
   void sendKey_(int c);
 
   void laserCallback_(const sensor_msgs::LaserScan::ConstPtr& scan);
-  void laserCorrectedCallback_(const sensor_msgs::LaserScan::ConstPtr& scan);
   void cloudCallback_(const sensor_msgs::PointCloud::ConstPtr& cloud);
-  void cloudCorrectedCallback_(const sensor_msgs::PointCloud::ConstPtr& cloud);
   void cameraInfoCallback_(const sensor_msgs::CameraInfo::ConstPtr& info);
   void cameraColorCallback_(const sensor_msgs::Image::ConstPtr& img);
   void cameraDepthCallback_(const sensor_msgs::Image::ConstPtr& img);
@@ -53,10 +54,6 @@ private:
   void distanceCallback_(const std_msgs::Int32::ConstPtr& num);
   void angleCallback_(const std_msgs::Int32::ConstPtr& num);
 
-public:
-  StationClient(ros::NodeHandle& nh, std::string lidar_name, std::string lidar2_name, std::string camera_name);
-
-  void getInput();
 };
 
 #endif

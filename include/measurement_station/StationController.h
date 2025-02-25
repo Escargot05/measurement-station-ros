@@ -16,23 +16,6 @@ struct position
 
 class StationController
 {
-private:
-  ros::NodeHandle& nh_;
-
-  ros::Publisher distance_pub_;
-  ros::Publisher angle_pub_;
-
-  serial::Serial serial_;
-
-  std::string port_;
-  int baudrate_;
-
-  position distance_;
-  position angle_;
-
-  int offset_;
-
-  void printPlannerPosition_();
 
 public:
   StationController(ros::NodeHandle& nh);
@@ -54,6 +37,24 @@ public:
 
   void sendDistanceData();
   void sendAngleData();
+
+private:
+  ros::NodeHandle& nh_;
+
+  ros::Publisher distance_pub_;
+  ros::Publisher angle_pub_;
+
+  serial::Serial serial_;
+
+  std::string port_;
+  int baudrate_;
+
+  position distance_;
+  position angle_;
+
+  int offset_;
+
+  void printPlannerPosition_();
 };
 
 #endif

@@ -5,7 +5,7 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "station_server");
   ros::NodeHandle nh;
 
-  StationServer server(nh, "rplidar", "rplidar_corrected", "camera_astra");
+  StationServer server(nh, "rplidar", "camera_astra");
 
   while (ros::ok())
   {

@@ -4,12 +4,6 @@
 // The sent position is relative to the current postion
 // The sleep times were determined experimentally and are dependent on feedrates
 
-void StationController::printPlannerPosition_()
-{
-  serial_.write("M114\r\n");
-  ROS_INFO_STREAM(serial_.read(serial_.available()));
-}
-
 StationController::StationController(ros::NodeHandle& nh) : nh_(nh)
 {
   nh_.getParam("station/serial/port", port_);
@@ -152,8 +146,6 @@ void StationController::sendDistanceData()
   std_msgs::Int32 distance;
   distance.data = distance_.current + offset_;
   distance_pub_.publish(distance);
-  // bag_.write("distance", ros::Time::now(), distance);
-  // bag_.write("angle", ros::Time::now(), angle);
 }
 
 void StationController::sendAngleData()
@@ -162,3 +154,10 @@ void StationController::sendAngleData()
   angle.data = angle_.current;
   angle_pub_.publish(angle);
 }
+
+void StationController::printPlannerPosition_()
+{
+  serial_.write("M114\r\n");
+  ROS_INFO_STREAM(serial_.read(serial_.available()));
+}
+

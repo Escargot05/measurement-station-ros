@@ -8,6 +8,13 @@
 
 class Camera
 {
+public:
+  Camera(ros::NodeHandle& nh, std::string name);
+
+  static void setImageCount(int image_count);
+  static int getImageCount();
+  void sendData();
+
 private:
   ros::NodeHandle& nh_;
   ros::CallbackQueue queue_;
@@ -28,14 +35,6 @@ private:
   void colorCallback_(const sensor_msgs::Image::ConstPtr& img);
   void depthCallback_(const sensor_msgs::Image::ConstPtr& img);
   void irCallback_(const sensor_msgs::Image::ConstPtr& img);
-
-public:
-  Camera(ros::NodeHandle& nh, std::string name);
-
-  // void updateImageNumber(int scan_number);
-  static void setImageCount(int image_count);
-  static int getImageCount();
-  void sendData();
 };
 
 #endif

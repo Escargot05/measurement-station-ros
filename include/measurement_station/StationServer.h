@@ -16,13 +16,17 @@
 
 class StationServer
 {
+public:
+  StationServer(ros::NodeHandle& nh, std::string lidar_name, std::string camera_name);
+  
+  void performAction();
+
 private:
   ros::NodeHandle& nh_;
 
   ros::Subscriber key_code_;
 
   Lidar rplidar_;
-  Lidar rplidar_corrected_;
   Camera astra_;
   StationController station_;
 
@@ -33,10 +37,6 @@ private:
   void keyCallaback_(const std_msgs::Int32::ConstPtr& num);
   void harvestData_();
 
-public:
-  StationServer(ros::NodeHandle& nh, std::string lidar_name, std::string lidar2_name, std::string camera_name);
-  
-  void performAction();
 };
 
 #endif

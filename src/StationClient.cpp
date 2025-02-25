@@ -1,15 +1,12 @@
 #include "measurement_station/StationClient.h"
 
-StationClient::StationClient(ros::NodeHandle& nh, std::string lidar_name, std::string lidar2_name,
-                             std::string camera_name)
+StationClient::StationClient(ros::NodeHandle& nh, std::string lidar_name, std::string camera_name)
   : nh_(nh)
 {
   key_code_ = nh_.advertise<std_msgs::Int32>("station/command", 1);
 
   laser_ = nh_.subscribe(lidar_name + "/scan_data", 1, &StationClient::laserCallback_, this);
   cloud_ = nh_.subscribe(lidar_name + "/cloud_data", 1, &StationClient::cloudCallback_, this);
-  laser_corrected_ = nh_.subscribe(lidar2_name + "/scan_data", 1, &StationClient::laserCorrectedCallback_, this);
-  cloud_corrected_ = nh_.subscribe(lidar2_name + "/cloud_data", 1, &StationClient::cloudCorrectedCallback_, this);
   camera_info_ = nh_.subscribe(camera_name + "/info_data", 1, &StationClient::cameraInfoCallback_, this);
   camera_color = nh_.subscribe(camera_name + "/color_data", 1, &StationClient::cameraColorCallback_, this);
   camera_depth_ = nh_.subscribe(camera_name + "/depth_data", 1, &StationClient::cameraDepthCallback_, this);
@@ -19,6 +16,21 @@ StationClient::StationClient(ros::NodeHandle& nh, std::string lidar_name, std::s
 
   ros::Duration(3.0).sleep();
   ROS_INFO("Client started!");
+}
+
+void StationClient::getInput()
+{
+  while (ros::ok())
+  {
+    int key = getch_();
+
+    if (key == KEYCODE_S)
+      bagOpen_();
+    else if (key == KEYCODE_P)
+      bagClose_();
+
+    sendKey_(key);
+  }
 }
 
 // Custom getchar method to skip the input buffer
@@ -71,19 +83,9 @@ void StationClient::laserCallback_(const sensor_msgs::LaserScan::ConstPtr& scan)
   bag_.write("laser", ros::Time::now(), scan);
 }
 
-void StationClient::laserCorrectedCallback_(const sensor_msgs::LaserScan::ConstPtr& scan)
-{
-  bag_.write("laser_corrected", ros::Time::now(), scan);
-}
-
 void StationClient::cloudCallback_(const sensor_msgs::PointCloud::ConstPtr& cloud)
 {
   bag_.write("cloud", ros::Time::now(), cloud);
-}
-
-void StationClient::cloudCorrectedCallback_(const sensor_msgs::PointCloud::ConstPtr& cloud)
-{
-  bag_.write("cloud_corrected", ros::Time::now(), cloud);
 }
 
 void StationClient::cameraInfoCallback_(const sensor_msgs::CameraInfo::ConstPtr& info)
@@ -118,17 +120,3 @@ void StationClient::angleCallback_(const std_msgs::Int32::ConstPtr& num)
   ROS_INFO("Angle stored");
 }
 
-void StationClient::getInput()
-{
-  while (ros::ok())
-  {
-    int key = getch_();
-
-    if (key == KEYCODE_S)
-      bagOpen_();
-    else if (key == KEYCODE_P)
-      bagClose_();
-
-    sendKey_(key);
-  }
-}
