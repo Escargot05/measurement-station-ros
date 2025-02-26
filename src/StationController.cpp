@@ -67,7 +67,7 @@ void StationController::moveAngularStep()
   serial_.write(gcode);
 
   ROS_INFO("Move to angle: %d", angle_.current);
-  ros::Duration(1.0).sleep();
+  ros::Duration(5.0).sleep();
 }
 
 void StationController::moveLinearContinous()
@@ -98,7 +98,7 @@ void StationController::moveAngleStart()
 
   printPlannerPosition_();
   ROS_INFO("Marker at initial angle: %d", angle_.current);
-  ros::Duration(1.0).sleep();
+  ros::Duration(5.0).sleep();
 }
 
 bool StationController::LinearStop()

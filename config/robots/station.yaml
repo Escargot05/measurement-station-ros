@@ -1,29 +1,26 @@
 station:
 
-  initial_position: 500          # (mm)
-  initial_angle: -10             # (degrees)
-  final_position: 0
+  initial_position: 1500         # (mm)
+  initial_angle: -5              # (degrees)
+  final_position: 1300
   final_angle: 0
   continous_measurement: false
   linear_step: 50
   angular_step: 5
   offset: 200
 
-  lidar_scans: 100
-  camera_images: 5
+  lidar_rate: 100
+  camera_rate: 2
 
   rplidar:
     topic: "scan"
-  
-  rplidar_corrected:
-    topic: "scan_corrected"
 
   camera_astra:
-    info_topic:  "camera/color/camera_info"
+    cloud_topic:  "camera/depth/points"
     color_topic: "camera/color/image_raw"
     depth_topic: "camera/depth/image_raw"
     ir_topic:    "camera/ir/image_raw"
 
   serial:
-    port: "/dev/ttyUSB0"
+    port: "/dev/station"
     baudrate: 115200

@@ -14,8 +14,8 @@ StationServer::StationServer(ros::NodeHandle& nh, std::string lidar_name, std::s
   station_.init();
 
   nh_.getParam("station/continous_measurement", continous_measurement_);
-  nh_.getParam("station/camera_images", image_count);
-  nh_.getParam("station/lidar_scans", scan_count);
+  nh_.getParam("station/camera_rate", image_count);
+  nh_.getParam("station/lidar_rate", scan_count);
   Camera::setImageCount(image_count);
   Lidar::setScanCount(scan_count);
 
@@ -64,8 +64,8 @@ void StationServer::harvestData_()
   ROS_INFO("Starting data harvesting");
 
   station_.home();
-  station_.moveAngleStart();
   station_.moveDistanceMax();
+  station_.moveAngleStart();
 
   if (continous_measurement_)
   {

@@ -7,7 +7,7 @@ StationClient::StationClient(ros::NodeHandle& nh, std::string lidar_name, std::s
 
   laser_ = nh_.subscribe(lidar_name + "/scan_data", 1, &StationClient::laserCallback_, this);
   cloud_ = nh_.subscribe(lidar_name + "/cloud_data", 1, &StationClient::cloudCallback_, this);
-  camera_info_ = nh_.subscribe(camera_name + "/info_data", 1, &StationClient::cameraInfoCallback_, this);
+  camera_cloud_ = nh_.subscribe(camera_name + "/cloud_data", 1, &StationClient::cameraCloudCallback_, this);
   camera_color = nh_.subscribe(camera_name + "/color_data", 1, &StationClient::cameraColorCallback_, this);
   camera_depth_ = nh_.subscribe(camera_name + "/depth_data", 1, &StationClient::cameraDepthCallback_, this);
   camera_ir_ = nh_.subscribe(camera_name + "/ir_data", 1, &StationClient::cameraIrCallback_, this);
@@ -88,9 +88,9 @@ void StationClient::cloudCallback_(const sensor_msgs::PointCloud::ConstPtr& clou
   bag_.write("cloud", ros::Time::now(), cloud);
 }
 
-void StationClient::cameraInfoCallback_(const sensor_msgs::CameraInfo::ConstPtr& info)
+void StationClient::cameraCloudCallback_(const sensor_msgs::PointCloud2::ConstPtr& info)
 {
-  bag_.write("camera_info", ros::Time::now(), info);
+  bag_.write("depth_cloud", ros::Time::now(), info);
 }
 
 void StationClient::cameraColorCallback_(const sensor_msgs::Image::ConstPtr& img)
