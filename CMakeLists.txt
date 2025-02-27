@@ -141,6 +141,7 @@ add_executable(station_server_node
   src/StationServer.cpp
   src/Lidar.cpp
   src/Camera.cpp
+  src/CameraStereo.cpp
   src/StationController.cpp)
 add_executable(station_client_node src/station_client_node.cpp src/StationClient.cpp)
 

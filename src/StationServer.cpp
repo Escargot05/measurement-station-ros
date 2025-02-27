@@ -1,9 +1,11 @@
 #include "measurement_station/StationServer.h"
 
-StationServer::StationServer(ros::NodeHandle& nh, std::string lidar_name, std::string camera_name)
+StationServer::StationServer(ros::NodeHandle& nh, std::string lidar_name, std::string camera_name,
+                             std::string camera2_name)
   : nh_(nh)
   , rplidar_(nh, lidar_name)
   , astra_(nh, camera_name)
+  , realsense_(nh, camera2_name)
   , station_(nh)
   , MEASUREMENT_TIME_(30.0)
 {
@@ -76,6 +78,7 @@ void StationServer::harvestData_()
     {
       rplidar_.sendData();
       astra_.sendData();
+      realsense_.sendData();
       ros::Duration(0.1).sleep();
     }
   }
@@ -101,7 +104,10 @@ void StationServer::harvestData_()
         for (int i = 0; i < scans; i++)
         {
           if (!(i % rate))
+          {
             astra_.sendData();
+            realsense_.sendData();
+          }
           rplidar_.sendData();
 
           ros::Duration(0.1).sleep();

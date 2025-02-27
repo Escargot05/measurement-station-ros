@@ -1,26 +1,33 @@
 station:
 
-  initial_position: 1500         # (mm)
-  initial_angle: -5              # (degrees)
-  final_position: 1300
-  final_angle: 0
-  continous_measurement: false
-  linear_step: 50
-  angular_step: 5
-  offset: 200
+  initial_position:       2700      # (mm)
+  initial_angle:          0         # (degrees)
+  final_position:         0
+  final_angle:            0
+  continous_measurement:  false
+  linear_step:            50
+  angular_step:           5
+  offset:                 200
 
-  lidar_rate: 100
-  camera_rate: 2
+  lidar_rate:             100
+  camera_rate:            2
 
   rplidar:
-    topic: "scan"
+    topic:                "scan"
+
+  camera_realsense:
+    cloud_topic:          "camera_stereo/depth/color/points"
+    color_topic:          "camera_stereo/color/image_raw"
+    depth_topic:          "camera_stereo/depth/image_rect_raw"
+    ir_topic:             "camera_stereo/infra1/image_rect_raw"
+    ir2_topic:            "camera_stereo/infra2/image_rect_raw"
 
   camera_astra:
-    cloud_topic:  "camera/depth/points"
-    color_topic: "camera/color/image_raw"
-    depth_topic: "camera/depth/image_raw"
-    ir_topic:    "camera/ir/image_raw"
+    cloud_topic:          "camera/depth/points"
+    color_topic:          "camera/color/image_raw"
+    depth_topic:          "camera/depth/image_raw"
+    ir_topic:             "camera/ir/image_raw"
 
   serial:
-    port: "/dev/station"
-    baudrate: 115200
+    port:                 "/dev/station"
+    baudrate:             115200

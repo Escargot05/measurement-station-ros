@@ -4,6 +4,7 @@
 #include <ros/ros.h>
 #include <std_msgs/Int32.h>
 #include "Camera.h"
+#include "CameraStereo.h"
 #include "Lidar.h"
 #include "StationController.h"
 
@@ -17,7 +18,7 @@
 class StationServer
 {
 public:
-  StationServer(ros::NodeHandle& nh, std::string lidar_name, std::string camera_name);
+  StationServer(ros::NodeHandle& nh, std::string lidar_name, std::string camera_name, std::string camera2_name);
   
   void performAction();
 
@@ -28,6 +29,7 @@ private:
 
   Lidar rplidar_;
   Camera astra_;
+  CameraStereo realsense_;
   StationController station_;
 
   int key_;

@@ -11,6 +11,8 @@
 #include <sensor_msgs/Image.h>
 #include <termios.h>
 #include <signal.h>
+#include <vector>
+#include <array>
 
 #define KEYCODE_S 0x73
 #define KEYCODE_P 0x70
@@ -22,7 +24,7 @@
 class StationClient
 {
 public:
-  StationClient(ros::NodeHandle& nh, std::string lidar_name, std::string camera_name);
+  StationClient(ros::NodeHandle& nh, std::string lidar_name, std::string camera_name, std::string camera2_name);
 
   void getInput();
 
@@ -32,12 +34,21 @@ private:
 
   ros::Publisher key_code_;
 
-  ros::Subscriber laser_;
-  ros::Subscriber cloud_;
-  ros::Subscriber camera_cloud_;
-  ros::Subscriber camera_color;
-  ros::Subscriber camera_depth_;
-  ros::Subscriber camera_ir_;
+  std::vector<ros::Subscriber> subscribers_;
+  // ros::Subscriber laser_;
+  // ros::Subscriber cloud_;
+
+  // ros::Subscriber camera_cloud_;
+  // ros::Subscriber camera_color;
+  // ros::Subscriber camera_depth_;
+  // ros::Subscriber camera_ir_;
+
+  // ros::Subscriber camera2_cloud_;
+  // ros::Subscriber camera2_color;
+  // ros::Subscriber camera2_depth_;
+  // ros::Subscriber camera2_ir_;
+  // ros::Subscriber camera2_ir2_;
+
   ros::Subscriber distance_;
   ros::Subscriber angle_;
 
@@ -46,12 +57,15 @@ private:
   void bagClose_();
   void sendKey_(int c);
 
-  void laserCallback_(const sensor_msgs::LaserScan::ConstPtr& scan);
-  void cloudCallback_(const sensor_msgs::PointCloud::ConstPtr& cloud);
-  void cameraCloudCallback_(const sensor_msgs::PointCloud2::ConstPtr& cloud);
-  void cameraColorCallback_(const sensor_msgs::Image::ConstPtr& img);
-  void cameraDepthCallback_(const sensor_msgs::Image::ConstPtr& img);
-  void cameraIrCallback_(const sensor_msgs::Image::ConstPtr& img);
+  template <typename T>
+  void callback_(const typename T::ConstPtr& msg, const std::string& topic);
+
+  // void laserCallback_(const sensor_msgs::LaserScan::ConstPtr& scan);
+  // void cloudCallback_(const sensor_msgs::PointCloud::ConstPtr& cloud);
+  // void cameraCloudCallback_(const sensor_msgs::PointCloud2::ConstPtr& cloud);
+  // void cameraColorCallback_(const sensor_msgs::Image::ConstPtr& img);
+  // void cameraDepthCallback_(const sensor_msgs::Image::ConstPtr& img);
+  // void cameraIrCallback_(const sensor_msgs::Image::ConstPtr& img);
   void distanceCallback_(const std_msgs::Int32::ConstPtr& num);
   void angleCallback_(const std_msgs::Int32::ConstPtr& num);
 

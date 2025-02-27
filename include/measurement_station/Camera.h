@@ -16,7 +16,7 @@ public:
   static int getImageCount();
   void sendData();
 
-private:
+protected:
   ros::NodeHandle& nh_;
   ros::CallbackQueue queue_;
 

@@ -5,6 +5,10 @@
         <arg name="color_info_uri" default="file://$(find station_controller)/config/sensors/astra_pro/rgb_camera.yaml"/> -->
     </include>
 
+    <include file="$(find realsense2_camera)/launch/rs_d435_camera_with_model.launch">
+        <remap from="camera" to="camera_stero"/>
+    </include>
+
     <include file="$(find rplidar_ros)/launch/rplidar_a2m8.launch"/>
 
     <rosparam file="$(find measurement_station)/config/robots/station.yaml"/>
