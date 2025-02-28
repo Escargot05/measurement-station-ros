@@ -1,7 +1,7 @@
 station:
 
   initial_position:       2700      # (mm)
-  initial_angle:          0         # (degrees)
+  initial_angle:          -30         # (degrees)
   final_position:         0
   final_angle:            0
   continous_measurement:  false

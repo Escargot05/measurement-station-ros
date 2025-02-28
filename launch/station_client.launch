@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-    <param name="station/bag_name" type="string" value="m1110_0deg_full"/>
+    <param name="station/bag_name" type="string" value="mxxx_full"/>
     <param name="station/bag_location" type="string" value="/home/domin/Documents/station_measurements" />
     <node pkg="measurement_station" type="station_client_node" name="station_client" output="screen"/>
 </launch>

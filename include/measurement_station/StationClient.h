@@ -35,19 +35,6 @@ private:
   ros::Publisher key_code_;
 
   std::vector<ros::Subscriber> subscribers_;
-  // ros::Subscriber laser_;
-  // ros::Subscriber cloud_;
-
-  // ros::Subscriber camera_cloud_;
-  // ros::Subscriber camera_color;
-  // ros::Subscriber camera_depth_;
-  // ros::Subscriber camera_ir_;
-
-  // ros::Subscriber camera2_cloud_;
-  // ros::Subscriber camera2_color;
-  // ros::Subscriber camera2_depth_;
-  // ros::Subscriber camera2_ir_;
-  // ros::Subscriber camera2_ir2_;
 
   ros::Subscriber distance_;
   ros::Subscriber angle_;
@@ -60,12 +47,6 @@ private:
   template <typename T>
   void callback_(const typename T::ConstPtr& msg, const std::string& topic);
 
-  // void laserCallback_(const sensor_msgs::LaserScan::ConstPtr& scan);
-  // void cloudCallback_(const sensor_msgs::PointCloud::ConstPtr& cloud);
-  // void cameraCloudCallback_(const sensor_msgs::PointCloud2::ConstPtr& cloud);
-  // void cameraColorCallback_(const sensor_msgs::Image::ConstPtr& img);
-  // void cameraDepthCallback_(const sensor_msgs::Image::ConstPtr& img);
-  // void cameraIrCallback_(const sensor_msgs::Image::ConstPtr& img);
   void distanceCallback_(const std_msgs::Int32::ConstPtr& num);
   void angleCallback_(const std_msgs::Int32::ConstPtr& num);
 

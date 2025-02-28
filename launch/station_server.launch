@@ -6,7 +6,7 @@
     </include>
 
     <include file="$(find realsense2_camera)/launch/rs_d435_camera_with_model.launch">
-        <remap from="camera" to="camera_stero"/>
+        <arg name="camera" value="camera_stero"/>
     </include>
 
     <include file="$(find rplidar_ros)/launch/rplidar_a2m8.launch"/>
