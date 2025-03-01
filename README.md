@@ -1,25 +1,27 @@
-# Measurement station
+# Measurement Station
 
 Author: [Dominik Zagórnik](https://github.com/Escargot05)
 
 ## Overview
 
-The motivation behind this project was to optimize data collection from the environment with fiducial markers. The station consist of two main parts: linear moving carriage with adapter for mounting sensors, and rotating profile for mounting markers. It is controlled by ROS wrapper on G-code commands send to Melzi board (basic Ender 3 3D printer motherboard) with modified Marlin firmware. The station server controls all the sensors and station itself, and the client records the ROS topics into the bag. These nodes could be run on separate devices. The typicall station measurement scenarion is to collect the x frames from camera nad y from lidar on given distance and marker rotation ranges in stepwise manner. The aquired data can be used in further research, utilizing ROS packages or just be exported to some more general format. TBH, this solution was meant to be done fast and cheap, and it suceeded quite well.
+The motivation behind this project was to optimize data collection from the environment with fiducial markers. The station consists of two main parts: a linearly moving carriage with an adapter for mounting sensors and a rotating profile for mounting markers. It is controlled by a ROS wrapper that sends G-code commands to a Melzi board (a basic Ender 3 3D printer motherboard) running modified Marlin firmware. 
+The station server manages all sensors and the station itself, while the client records ROS topics into a bag file. These nodes can be run on separate devices. A typical station measurement scenario involves collecting x frames from the camera and y from the LiDAR at a given distance and marker rotation range in a stepwise manner.
+The acquired data can be used for further research, processed using ROS packages, or exported to a more general format. This solution was designed in short time and to be cost-effective, and it succeeded quite well.
 
-## Set-up
+## Setup
 
-### Install dependencies
+### Install Dependencies
 
-* ROS Noetic
-* rplidar package
-* astra camera package
+* [ROS Noetic](http://wiki.ros.org/noetic/Installation/Ubuntu)
+* [rplidar package](https://github.com/Slamtec/rplidar_ros)
+* [astra camera package](https://github.com/Escargot05/ros_astra_camera)
 * serial package:
 
   ```
   sudo apt install ros-noetic-serial
   ```
 
-Then create catkin workspace and clone the repo.
+Then, create a Catkin workspace and clone the repository:
 
 ```bash
 mkdir -p ~/station_ws/src
@@ -36,20 +38,20 @@ echo "source ~/station_ws/devel/setup.bash" >> ~/.bashrc
 source ./deve/setup.bash
 ```
 
-### Instal udev rules
+### Install udev Rules
 
 ```bash
 roscd measurement_station
 ./scripts/create_udev_rules.sh
 ```
 
-Remember to also install udev rules of rplidar and astra camera.
+Remember to also install the udev rules for rplidar and the astra camera.
 
 ### rplidar
 
-Edit rplidar launch file `serial_port` parameter.
+Edit the rplidar launch file to set the `serial_port` parameter.
 
-```bash
+```xml
 <param name="serial_port" "type="string" value="/dev/rplidar"/>
 ```
 
@@ -57,30 +59,32 @@ Edit rplidar launch file `serial_port` parameter.
 
 ### Initialization
 
-Set path and name for rosbag in `station_client.launch`
+1. Set the path and name for the rosbag in `station_client.launch`.
 
-Set configuration for measurement scenario in `station.yaml`
+2. Configure the measurement scenario in `station.yaml`.
 
-Then launch station server and client.
+3. Launch the station server and client:
+  
+   ```bash
+   roslaunch measurement_station station_server.launch
+   roslaunch measurement_Station station_cleint.launch 
+   ```
 
-```bash
-roslaunch measurement_station station_server.launch
-roslaunch measurement_Station station_cleint.launch 
-```
+### Client Key Inputs
 
-### Client key inputs
+* `e` - Enable station motors
+* `d` - Disable station motors
+* `l` - Rotate marker counterclockwise
+* `h` - Rotate marker clockwise
+* `s` - Start data collection and open the bag
+* `p` - Finish data collection, close the rosbag, and stop the server
 
-* `e` enable station motors
-* `d` disable station motors
-* `l` rotate marker counter-clockwise
-* `h` rotate marker clockwise
-* `s` start data collection and open bag
-* `p` finish data collection, close rosbag, and stop server
+## Data Examination
 
-## Data examination
-
-For images and simple numeric message `rqt_bag` is enough, but for scans and point clouds use `rviz`.
+For images and simple numeric messages, `rqt_bag` is sufficient. However, for scans and point clouds, use `rviz`.
 
 ```bash
 rqt_bag <path_to_rosbag>
 ```
+
+![station-censor](https://github.com/user-attachments/assets/d585f9a9-026a-41f5-8d52-2f9f7df0af1f)
