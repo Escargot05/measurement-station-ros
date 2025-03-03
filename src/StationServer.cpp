@@ -122,7 +122,6 @@ void StationServer::harvestData_()
       station_.moveDistanceMax();
       station_.moveAngularStep();
     }
-
-    ROS_INFO("Data harvested succesfully");
   }
+  ROS_INFO("Data harvested succesfully");
 }

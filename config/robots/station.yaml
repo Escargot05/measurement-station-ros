@@ -1,10 +1,10 @@
 station:
 
   initial_position:       2700      # (mm)
-  initial_angle:          -30         # (degrees)
+  initial_angle:          -30       # (degrees)
+  continous_measurement:  false
   final_position:         0
   final_angle:            0
-  continous_measurement:  false
   linear_step:            50
   angular_step:           5
   offset:                 200
